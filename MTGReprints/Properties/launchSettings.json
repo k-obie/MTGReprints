@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MTGReprints (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MTGReprints (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
