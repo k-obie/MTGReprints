@@ -23,6 +23,7 @@ namespace MTGReprints
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        public MainWindowViewModel ViewModel { get; set; } = new();
         public MainWindow()
         {
             InitializeComponent();
