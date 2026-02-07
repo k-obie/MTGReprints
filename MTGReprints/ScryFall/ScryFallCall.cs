@@ -63,20 +63,6 @@ namespace MTGReprints.ScryFall
                     Set set = JsonSerializer.Deserialize<Set>(jsonContent, options);
 
 
-                    //string firstCardString = set.Data[0].ToString();
-
-                    //Card firstCard = JsonSerializer.Deserialize<Card>(firstCardString, options);
-
-
-                    //foreach (var item in set.Data)
-                    //{
-                    //    Card card = JsonSerializer.Deserialize<Card>(item.ToString(), options);
-                    //    if (card.Reprint == true)
-                    //    {
-                    //        reprintList.Add(card);
-                    //    }
-                    //}
-
 
                     reprintList = set.Data.Select(p => JsonSerializer.Deserialize<Card>(p.ToString(), options)).Where(card => card.Reprint == true).ToList();
 
@@ -179,7 +165,7 @@ namespace MTGReprints.ScryFall
 
                         DateTime.TryParse(setD.ReleasedAt, out DateTime parsedDate);
 
-                        if (parsedDate > targetDate && parsedDate < DateTime.Now && setD.SetType == "expansion")
+                        if (parsedDate > targetDate && setD.SetType == "expansion")
                         {
                             setDefs.Add(setD);
                         }

@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MTGReprints.ScryFall;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MTGReprints.ScryFall;
 
 namespace MTGReprints
 {
@@ -59,15 +60,32 @@ namespace MTGReprints
             reprints = await scryFallCall.GetCardsFromASetTest(SetName);
 
             ImageGallery.Clear();
-            foreach (Card card in reprints)
+            if (reprints is not null)
             {
-                ImageGallery.Add(card.ImageUris);
+                foreach (Card card in reprints)
+                {
+                    ImageGallery.Add(card.ImageUris);
+                }
             }
+            else
+            {
+                Debug.WriteLine($"FAIL TO FIND REPRINTS or Too many requests");
+            }
+
         }
 
-        public async Task TestFunction(SetDef selectedItem)
-        {
+        public IRelayCommand<SetDef> ClickCommand => new RelayCommand<SetDef>(OnButtonClicked);
 
+        
+        private void OnButtonClicked(SetDef selectedSet)
+        {
+            if (selectedSet != null)
+            {
+                // Do something with the data here!
+                Debug.WriteLine($"Clicked on: {selectedSet.ScryfallUri}");
+
+                _ = GetCardsFromSet(selectedSet.SearchUri);
+            }
         }
 
 

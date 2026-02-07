@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
+    x:Name="ThisWindow"
     Title="MTGReprints">
 
     <Window.SystemBackdrop>
@@ -21,11 +22,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
 
 
         <controls:SettingsCard Grid.Row="0"
                        Grid.Column="0"
                        Width="200"
+                               MinWidth="50"
                     x:Name="settingsCard"
                     Description="{x:Bind ViewModel.Count, Mode=OneWay}"
                     Header="This is the Header">
@@ -60,17 +67,57 @@
                         </Border>
                         <TextBlock Text="{x:Bind ScryfallUri}" 
                          IsTextSelectionEnabled="True" ></TextBlock>
-                        <Button Content="Click me" 
-                        ></Button>
+                        <Button                            
+                            Command="{Binding ViewModel.ClickCommand, ElementName=ThisWindow}"
+                            CommandParameter="{x:Bind}"
+                        > click</Button>
+
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <!--
+        <GridView Grid.Row="1" 
+          Grid.Column="1"
+                  Background="red"
+      ItemsSource="{x:Bind ViewModel.ImageGallerySET}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="scryfall:SetDef">
+                    <StackPanel Margin="10" Width="200">
+
+                        <Border Background="White" 
+        CornerRadius="8" >
+
+
+                            <Image 
+                   Width="200" 
+                   Height="279" 
+                   Stretch="UniformToFill" >
+                                <Image.Source>
+                                    <SvgImageSource UriSource="{x:Bind IconSvgUri}" 
+                    RasterizePixelHeight="148" 
+                    RasterizePixelWidth="148" />
+                                </Image.Source>
+
+                            </Image>
+
+                        </Border>
+                        <TextBlock Text="{x:Bind ScryfallUri}" 
+                         IsTextSelectionEnabled="True" ></TextBlock>
+                        <Button                            
+                            Command="{Binding ViewModel.ClickCommand, ElementName=ThisWindow}"
+                            CommandParameter="{x:Bind}"
+                        >click</Button>
 
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
 
-        <!--
+        -->
         <GridView Grid.Row="1"
           Grid.Column="1"
+        Background="red"
       ItemsSource="{x:Bind ViewModel.ImageGallery}">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="scryfall:ImageLink">
@@ -83,8 +130,8 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-
-        -->
+        
+       
 
 
     </Grid>
